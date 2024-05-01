@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{%static 'css/show.css'%}" />
+    <!-- <link rel="stylesheet" href="form.css" />
+    <script src="form.js"></script> -->
+    <title>{{ roll_number }}</title>
+  </head>
+  <body>
+    <div id="LogoContainer">
+      <img src="{% static 'media/logo.png' %}" alt="nbkrist LOGO" />
+    </div>
+    <main>
+      <div id="form">
+        <form action="" method="post">
+          <div class="inpdiv">
+            {% csrf_token %}
+            <input
+              required
+              value="{{ roll_number.0 }}"
+              maxlength="1"
+              class="inp"
+              type="text"
+              name="roll"
+            />
+            <input
+              required
+              value="{{ roll_number.1 }}"
+              maxlength="1"
+              class="inp"
+              type="text"
+              name="roll"
+            />
+            <input
+              required
+              value="{{ roll_number.2 }}"
+              maxlength="1"
+              class="inp"
+              type="text"
+              name="roll"
+            />
+            <input
+              required
+              value="{{ roll_number.3 }}"
+              maxlength="1"
+              class="inp"
+              type="text"
+              name="roll"
+            />
+            <input
+              required
+              value="{{ roll_number.4 }}"
+              maxlength="1"
+              class="inp"
+              type="text"
+              name="roll"
+            />
+            <input
+              required
+              value="{{ roll_number.5 }}"
+              maxlength="1"
+              class="inp"
+              type="text"
+              name="roll"
+            />
+            <input
+              value="{{ roll_number.6 }}"
+              required
+              maxlength="1"
+              class="inp"
+              type="text"
+              name="roll"
+            />
+            <input
+              value="{{ roll_number.7 }}"
+              required
+              maxlength="1"
+              class="inp"
+              type="text"
+              name="roll"
+            />
+            <input
+              value="{{ roll_number.8 }}"
+              required
+              maxlength="1"
+              class="inp"
+              type="text"
+              name="roll"
+            />
+            <input
+              value="{{ roll_number.9 }}"
+              required
+              maxlength="1"
+              class="inp"
+              type="text"
+              name="roll"
+            />
+          </div>
+          <button type="submit" class="btn">Submit</button>
+        </form>
+        <div id="main_data">
+          <p class="colour_primary">Roll Number:</p>
+          <p class="colour_moody">{{ roll_number }}</p>
+          <p class="colour_primary">Percentage :</p>
+          <p class="colour_moody">{{attendance_percentage}}%</p>
+          <p class="colour_primary">Total Classes:</p>
+          <p class="colour_moody">{{total_classes}}</p>
+        </div>
+        <div id="sub_data">
+          <p class="colour_moody">NCC: {{NCC}}</p>
+          <p class="colour_moody">EP: {{EP}}</p>
+          <p class="colour_moody">DS: {{DS}}</p>
+          <p class="colour_moody">DEVC: {{DEVC}}</p>
+          <p class="colour_moody">BEEE-II: {{BEEEII}}</p>
+          <p class="colour_moody">BEEE-I: {{BEEEI}}</p>
+          <p class="colour_moody">LABS: {{LABS}}</p>
+          <p class="colour_moody"></p>
+          <p class="colour_moody"></p>
+        </div>
+      </div>
+    </main>
+    <script src="{% static 'js/form.js'%}"></script>
+  </body>
+</html>
