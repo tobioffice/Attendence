@@ -3,34 +3,35 @@ import requests
 import random
 import string
 
-imp_info = {'token': 'd2dfss2vt6g8acv1ok2hhbnei6'}
+imp_info = {'token': 'd2dfss2vt6g8acv1ewfefbnei6'}
 
 def get_resp(date_obj):
-    url = 'http://103.159.250.194:94/attendance/attendanceTillTodayReport.php'
+    url = 'http://192.168.46.222/attendance/attendanceTillTodayReport.php'
     imp_info['indian_time'] = date_obj
     headers = {
         'Cache-Control': 'max-age=0',
         'Upgrade-Insecure-Requests': '1',
-        'Origin': 'http://103.159.250.194:94',
+        'Origin': 'http://192.168.46.222',
         'Content-Type': 'application/x-www-form-urlencoded',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Referer': 'http://103.159.250.194:94/attendance/attendanceTillADate.php',
+        'Referer': 'http://192.168.46.222/attendance/attendanceTillADate.php',
         'Accept-Encoding': 'gzip, deflate, br',
         'Accept-Language': 'en-US,en;q=0.9',
-        'Cookie': f'PHPSESSID={imp_info['token']}',
+        'Cookie': f'PHPSESSID={imp_info["token"]}',
         'Connection': 'close',
     }
     indian_time = imp_info['indian_time']
     data = {
-        'acadYear': '2023-24',
-        'yearSem': '12',
+        'acadYear': '2024-25',
+        'yearSem': '21',
         'branch': '5',
-        'section': 'A',
+        'section': 'C',
         'dateOfAttendance': f'{indian_time.day if len(str(indian_time.day)) == 2 else "0" + str(indian_time.day)}-{indian_time.month if len(str(indian_time.month)) == 2 else "0" + str(indian_time.month)}-{indian_time.year}',
     }
 
     response = requests.post(url, headers=headers, data=data)
+    print(response.text)
     return response
 
 
@@ -41,30 +42,30 @@ def get_data(rollno, date_obj):
     if "<tr><td>User Name</td><td>:</td><td><input type=textbox name='username' id='username'" in html:
         print(len(html))
         print('entered\n')
-        rand_str = ''.join(random.choices(string.ascii_lowercase,k=6))
-        sess_token = f"d2dfss2vt6g8acv1ok2{rand_str}6"
-        url = "http://103.159.250.194:94/attendance/attendanceLogin.php"
+        rand_str = ''.join(random.choices(string.ascii_lowercase,k=3))
+        sess_token = f"ggpmgfj8dssskkp2q2h6db{rand_str}0"
+        url = "http://192.168.46.222/attendance/attendanceLogin.php"
         headers = {
-            "Host": "103.159.250.194:94",
-            "Content-Length": "41",
-            "Cache-Control": "max-age=0",
-            "Upgrade-Insecure-Requests": "1",
-            "Origin": "http://103.159.250.194:94",
-            "Content-Type": "application/x-www-form-urlencoded",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-            "Referer": "http://103.159.250.194:94/attendance/attendanceLogin.php",
-            "Accept-Encoding": "gzip, deflate, br",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Cookie": f"PHPSESSID={sess_token}",
-            "Connection": "close"
-        }
+    "Cache-Control": "max-age=0",
+    "Origin": "http://192.168.46.222",
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Upgrade-Insecure-Requests": "1",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+    "Sec-GPC": "1",
+    "Accept-Language": "en-US,en",
+    "Referer": "http://192.168.46.222/attendance/attendanceLogin.php",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Cookie": f"PHPSESSID={sess_token}",
+    "Connection": "keep-alive"
+}
 
-        payload = 'username=rlece&password=rl%40pwd&captcha='
+        payload = 'username=pnd&password=nag9248400433endra&captcha='
 
-        response = requests.post(url, headers=headers, data=payload)
+        response = requests.post(url, headers=headers, data=payload, allow_redirects=False)
+        print(response.headers,'\n',response.text)
         imp_info['token'] = sess_token
-        return get_data(rollno)       
+        return get_data(rollno, date_obj)       
     else:
         soup = BeautifulSoup(html, 'html.parser')
         tr_tag = soup.find('tr', {'id': f'{rollno}'})

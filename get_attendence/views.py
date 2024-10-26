@@ -5,9 +5,10 @@ import pytz
 
 def get_attendence(request):
     if request.method == 'POST':
-        roll_num = ''.join(request.POST.getlist('roll'))
+        roll_num = ''.join(request.POST.getlist('roll')).upper()
         date_obj = datetime.datetime.now(datetime.UTC).replace(tzinfo=pytz.utc).astimezone(pytz.timezone('Asia/Kolkata'))
         dta= get_data(rollno=roll_num, date_obj=date_obj)
+        print(dta)
 #         dta = {
 #   "roll_number": "23KB1A0502",
 #   "NCC": "2",
@@ -21,10 +22,7 @@ def get_attendence(request):
 #   "total_classes": "(156 / 315)"
 # }
         if type(dta) !=str:
-            dta['BEEEII'] = dta['BEEE-II']
-            dta['BEEEI'] = dta['BEEE-I']
-            dta['DS'] = dta['DS.']
-            dta['LABS'] = dta[list(dta.keys())[7]]
+            dta['LABS'] = dta[list(dta.keys())[8]]
             return render(request, 'show_attendence.html', dta)
         else:
             return HttpResponse(dta)
